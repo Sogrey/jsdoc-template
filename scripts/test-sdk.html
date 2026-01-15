@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDK Test - JSDoc Template</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #42b883;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .result {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-left: 3px solid #42b883;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #42b883;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #3aa876;
+        }
+        .log {
+            background-color: #2c3e50;
+            color: #42b883;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SDK 功能测试</h1>
+
+        <div class="test-section">
+            <h3>1. 图形测试</h3>
+            <button onclick="testShapes()">测试图形</button>
+            <div id="shapes-result" class="result" style="display:none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>2. 工厂模式测试</h3>
+            <button onclick="testFactory()">测试工厂</button>
+            <div id="factory-result" class="result" style="display:none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. 事件发射器测试</h3>
+            <button onclick="testEventEmitter()">测试事件</button>
+            <div id="event-result" class="result" style="display:none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. 数学工具测试</h3>
+            <button onclick="testMathUtils()">测试数学工具</button>
+            <div id="math-result" class="result" style="display:none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>5. 全部测试</h3>
+            <button onclick="runAllTests()">运行所有测试</button>
+            <div id="all-result" class="result" style="display:none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>测试日志</h3>
+            <div id="log" class="log"></div>
+        </div>
+    </div>
+
+    <!-- SDK 文件路径，根据实际构建结果修改 -->
+    <script src="../Build/SDK/jsdoc-sdk.umd.js"></script>
+
+    <script>
+        const { ShapeFactory, ShapeType, Circle, Rectangle, EventEmitter, MathUtils } = JSDocSDK;
+
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const time = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `[${time}] ${message}<br>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function testShapes() {
+            log('开始测试图形...');
+            const resultDiv = document.getElementById('shapes-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '';
+
+            try {
+                // 测试圆形
+                const circle = new Circle('testCircle', 0, 0, 5);
+                log(`圆形面积: ${circle.getArea().toFixed(2)}`);
+                log(`圆形周长: ${circle.getPerimeter().toFixed(2)}`);
+                log(`圆形直径: ${circle.getDiameter().toFixed(2)}`);
+
+                // 测试矩形
+                const rect = new Rectangle('testRect', 0, 0, 4, 5);
+                log(`矩形面积: ${rect.getArea()}`);
+                log(`矩形周长: ${rect.getPerimeter()}`);
+                log(`矩形中心点: (${rect.getCenter().x.toFixed(2)}, ${rect.getCenter().y.toFixed(2)})`);
+
+                resultDiv.innerHTML += '<p>✓ 图形测试通过</p>';
+                resultDiv.style.borderLeftColor = '#42b883';
+            } catch (error) {
+                log(`图形测试失败: ${error.message}`);
+                resultDiv.innerHTML += `<p>✗ 图形测试失败: ${error.message}</p>`;
+                resultDiv.style.borderLeftColor = '#e74c3c';
+            }
+        }
+
+        function testFactory() {
+            log('开始测试工厂模式...');
+            const resultDiv = document.getElementById('factory-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '';
+
+            try {
+                // 使用工厂创建图形
+                const circle = ShapeFactory.createShape(ShapeType.CIRCLE, {
+                    name: 'factoryCircle',
+                    x: 0,
+                    y: 0,
+                    radius: 5
+                });
+
+                const rect = ShapeFactory.createShape(ShapeType.RECTANGLE, {
+                    name: 'factoryRect',
+                    x: 0,
+                    y: 0,
+                    width: 4,
+                    height: 5
+                });
+
+                // 批量创建
+                const shapes = ShapeFactory.createShapes([
+                    {
+                        type: ShapeType.CIRCLE,
+                        options: { name: 'c1', x: 0, y: 0, radius: 5 }
+                    },
+                    {
+                        type: ShapeType.RECTANGLE,
+                        options: { name: 'r1', x: 10, y: 10, width: 4, height: 5 }
+                    }
+                ]);
+
+                const totalArea = ShapeFactory.calculateTotalArea(shapes);
+                log(`批量创建图形数量: ${shapes.length}`);
+                log(`总面积: ${totalArea.toFixed(2)}`);
+
+                // 查找图形
+                const found = ShapeFactory.findShapeByName(shapes, 'c1');
+                log(`找到图形: ${found ? found.name : '未找到'}`);
+
+                resultDiv.innerHTML += '<p>✓ 工厂模式测试通过</p>';
+                resultDiv.style.borderLeftColor = '#42b883';
+            } catch (error) {
+                log(`工厂模式测试失败: ${error.message}`);
+                resultDiv.innerHTML += `<p>✗ 工厂模式测试失败: ${error.message}</p>`;
+                resultDiv.style.borderLeftColor = '#e74c3c';
+            }
+        }
+
+        function testEventEmitter() {
+            log('开始测试事件发射器...');
+            const resultDiv = document.getElementById('event-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '';
+
+            try {
+                const emitter = new EventEmitter();
+
+                // 测试普通监听器
+                let eventCount = 0;
+                emitter.on('test', (data) => {
+                    eventCount++;
+                    log(`事件触发 #${eventCount}: ${data}`);
+                });
+
+                emitter.emit('test', 'Hello World');
+                emitter.emit('test', 'Test Message');
+
+                log(`监听器数量: ${emitter.listenerCount('test')}`);
+                log(`已注册事件: ${emitter.eventNames().join(', ')}`);
+
+                // 测试一次性监听器
+                emitter.once('once-test', (data) => {
+                    log(`一次性事件: ${data}`);
+                });
+
+                emitter.emit('once-test', 'First time');
+                emitter.emit('once-test', 'Second time (should not trigger)');
+
+                resultDiv.innerHTML += '<p>✓ 事件发射器测试通过</p>';
+                resultDiv.style.borderLeftColor = '#42b883';
+            } catch (error) {
+                log(`事件发射器测试失败: ${error.message}`);
+                resultDiv.innerHTML += `<p>✗ 事件发射器测试失败: ${error.message}</p>`;
+                resultDiv.style.borderLeftColor = '#e74c3c';
+            }
+        }
+
+        function testMathUtils() {
+            log('开始测试数学工具...');
+            const resultDiv = document.getElementById('math-result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '';
+
+            try {
+                // 测试距离计算
+                const distance = MathUtils.distance(0, 0, 3, 4);
+                log(`距离 (0,0) 到 (3,4): ${distance}`);
+
+                // 测试中点计算
+                const mid = MathUtils.midpoint(0, 0, 10, 10);
+                log(`中点 (0,0) 和 (10,10): (${mid.x}, ${mid.y})`);
+
+                // 测试角度转换
+                const radians = MathUtils.degreesToRadians(180);
+                log(`180度 = ${radians.toFixed(2)} 弧度`);
+
+                const degrees = MathUtils.radiansToDegrees(Math.PI);
+                log(`π 弧度 = ${degrees.toFixed(2)} 度`);
+
+                // 测试限制范围
+                const clamped = MathUtils.clamp(15, 0, 10);
+                log(`限制 15 在 [0,10] 范围内: ${clamped}`);
+
+                // 测试线性插值
+                const lerped = MathUtils.lerp(0, 100, 0.5);
+                log(`线性插值 0 到 100, t=0.5: ${lerped}`);
+
+                // 测试质数判断
+                log(`7 是质数: ${MathUtils.isPrime(7)}`);
+                log(`8 是质数: ${MathUtils.isPrime(8)}`);
+
+                // 测试平均值
+                const avg = MathUtils.average([1, 2, 3, 4, 5]);
+                log(`[1,2,3,4,5] 平均值: ${avg}`);
+
+                resultDiv.innerHTML += '<p>✓ 数学工具测试通过</p>';
+                resultDiv.style.borderLeftColor = '#42b883';
+            } catch (error) {
+                log(`数学工具测试失败: ${error.message}`);
+                resultDiv.innerHTML += `<p>✗ 数学工具测试失败: ${error.message}</p>`;
+                resultDiv.style.borderLeftColor = '#e74c3c';
+            }
+        }
+
+        function runAllTests() {
+            log('开始运行所有测试...');
+            testShapes();
+            testFactory();
+            testEventEmitter();
+            testMathUtils();
+            log('所有测试完成!');
+        }
+
+        // 页面加载完成后显示 SDK 版本信息
+        window.addEventListener('DOMContentLoaded', () => {
+            log('SDK 测试页面加载完成');
+            log('点击上方按钮开始测试');
+        });
+    </script>
+</body>
+</html>

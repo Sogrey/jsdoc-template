@@ -1,0 +1,41 @@
+{
+  "name": "jsdoc-sdk",
+  "version": "1.0.0",
+  "description": "JSDoc SDK - 一个用于生成和管理几何图形的工具库",
+  "main": "jsdoc-sdk.cjs.js",
+  "module": "jsdoc-sdk.es.js",
+  "types": "jsdoc-sdk.d.ts",
+  "exports": {
+    ".": {
+      "import": "./jsdoc-sdk.es.js",
+      "require": "./jsdoc-sdk.cjs.js",
+      "types": "./jsdoc-sdk.d.ts"
+    }
+  },
+  "browser": "jsdoc-sdk.umd.js",
+  "files": [
+    "*.js",
+    "*.js.map",
+    "*.d.ts",
+    "README.md"
+  ],
+  "keywords": [
+    "jsdoc",
+    "sdk",
+    "geometry",
+    "shapes",
+    "canvas",
+    "graphics",
+    "event-emitter"
+  ],
+  "author": "Sogrey",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sogrey/jsdoc-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sogrey/jsdoc-template/issues"
+  },
+  "homepage": "https://github.com/Sogrey/jsdoc-template#readme"
+}

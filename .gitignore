@@ -34,3 +34,6 @@ coverage
 
 # Vitest
 __screenshots__/
+
+# SDK Build (完全忽略 Build/SDK 目录)
+Build/SDK/

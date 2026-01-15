@@ -2,7 +2,7 @@
  * @fileoverview 矩形类，继承自Shape
  */
 
-import { Shape } from './Shape.mjs';
+import { Shape } from './Shape.js';
 
 /**
  * 矩形类

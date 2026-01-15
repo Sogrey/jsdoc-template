@@ -6,6 +6,7 @@
 
 - 📝 基于 [JSDoc](https://jsdoc.app/) 的文档生成
 - 🎨 自定义文档模板，美观易用
+- 📦 支持 SDK 多格式打包（UMD、CommonJS、ES Module）
 - 📚 支持递归扫描 `src/sdk` 目录
 - 🔍 支持 JSDoc pedantic 模式严格检查
 - 🔄 支持文档实时监听更新
@@ -26,16 +27,23 @@
 ```
 jsdoc-template/
 ├── src/
-│   ├── sdk/              # SDK 源码目录（文档生成目标）
+│   ├── sdk/              # SDK 源码目录（文档生成和打包目标）
 │   ├── components/       # Vue 组件
 │   ├── views/            # 页面视图
 │   └── router/           # 路由配置
 ├── scripts/
-│   └── jsdoc/
-│       ├── conf.json     # JSDoc 配置文件
-│       └── jsdoc_template/ # 自定义文档模板
+│   ├── jsdoc/
+│   │   ├── conf.json     # JSDoc 配置文件
+│   │   └── jsdoc_template/ # 自定义文档模板
+│   ├── sdk/
+│   │   ├── package.json  # SDK NPM 配置模板
+│   │   └── README.md     # SDK 使用文档模板
+│   ├── build-sdk.mjs    # SDK 生产构建脚本
+│   ├── build-sdk-dev.mjs # SDK 开发构建脚本
+│   └── test-sdk.html    # SDK 功能测试页面
 ├── Build/
-│   └── Documentation/    # 生成的文档输出目录
+│   ├── Documentation/    # 生成的文档输出目录
+│   └── SDK/              # SDK 构建输出目录（自动生成，gitignore）
 ├── public/               # 静态资源
 └── package.json
 ```
@@ -46,6 +54,8 @@ jsdoc-template/
 - pnpm (推荐) 或 npm
 
 ## 快速开始
+
+**📖 新用户？** 查看 [QUICKSTART.md](./QUICKSTART.md) 快速上手 SDK 打包工具！
 
 ### 安装依赖
 
@@ -72,7 +82,7 @@ pnpm run docs
 生成严格模式的文档（pedantic 模式会检查 JSDoc 注释的完整性）：
 
 ```sh
-pnpm run docs:pedantic
+pnpm run docs
 ```
 
 ### 文档实时监听
@@ -134,6 +144,39 @@ pnpm run build-only
 ```sh
 pnpm run preview
 ```
+
+### SDK 构建
+
+构建 SDK 为多种格式（ES Module、CommonJS、UMD）：
+
+```sh
+# 生产构建（压缩代码） + 开发构建（不压缩，包含 source map）
+pnpm run build:sdk
+```
+
+SDK 构建输出到 `Build/SDK/` 目录，包含：
+- `jsdoc-sdk.es.js` - ES Module 格式
+- `jsdoc-sdk.cjs.js` - CommonJS 格式
+- `jsdoc-sdk.umd.js` - UMD 格式（浏览器直接使用）
+- 对应的 `.js.map` source map 文件
+
+### SDK 测试
+
+构建 SDK 后，可以在浏览器中打开测试页面：
+
+```sh
+# 1. 先构建 SDK
+pnpm run build:sdk
+
+# 2. 在浏览器中打开测试页面
+# 文件路径：scripts/test-sdk.html
+```
+
+测试页面提供了交互式测试，验证 SDK 的所有功能：
+- 图形创建和计算（圆形、矩形）
+- 工厂模式创建图形
+- 事件发射器功能
+- 数学工具类函数
 
 ## JSDoc 配置
 
@@ -198,14 +241,55 @@ class User {
 
 ## 自定义配置
 
-- **Vite 配置**: 查看 [vite.config.ts](./vite.config.ts)
+- **Vite 配置**:
+  - [vite.config.ts](./vite.config.ts) - 应用开发配置
+  - [vite.config.sdk.ts](./vite.config.sdk.ts) - SDK 打包配置
+  - [vite.config.sdk.dev.ts](./vite.config.sdk.dev.ts) - 开发版 SDK 打包配置
 - **TypeScript 配置**:
   - [tsconfig.json](./tsconfig.json) - 主配置文件
   - [tsconfig.app.json](./tsconfig.app.json) - 应用配置
   - [tsconfig.node.json](./tsconfig.node.json) - Node 环境配置
 - **ESLint 配置**: 查看 [eslint.config.ts](./eslint.config.ts)
 - **JSDoc 配置**: 查看 [scripts/jsdoc/conf.json](./scripts/jsdoc/conf.json)
+- **SDK 配置**: 查看 [vite.config.sdk.ts](./vite.config.sdk.ts) 和 [vite.config.sdk.dev.ts](./vite.config.sdk.dev.ts)
+
+## SDK 使用示例
+
+### 在 Node.js 环境使用（CommonJS）
+
+```javascript
+const { Circle, Rectangle, ShapeFactory, EventEmitter } = require('./Build/SDK/jsdoc-sdk.cjs.js')
+
+const circle = new Circle('myCircle', 0, 0, 5)
+console.log(circle.getArea())
+```
+
+### 在浏览器中使用（UMD）
+
+```html
+<script src="./Build/SDK/jsdoc-sdk.umd.js"></script>
+<script>
+  const { Circle, ShapeFactory } = JSDocSDK
+  const circle = new Circle('myCircle', 0, 0, 5)
+  console.log(circle.getArea())
+</script>
+```
+
+### 在模块化环境使用（ES Module）
+
+```javascript
+import { Circle, ShapeFactory } from './Build/SDK/jsdoc-sdk.es.js'
+
+const circle = new Circle('myCircle', 0, 0, 5)
+console.log(circle.getArea())
+```
 
 ## License
 
 MIT
+
+## 相关文档
+
+- **[QUICKSTART.md](./QUICKSTART.md)** - SDK 打包工具快速开始指南
+- **[docs/SDK_BUILD_GUIDE.md](./docs/SDK_BUILD_GUIDE.md)** - SDK 构建详细指南
+- **[Build/SDK/README.md](./Build/SDK/README.md)** - SDK API 文档
