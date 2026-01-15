@@ -44,8 +44,11 @@ kbd + kbd {
 }
 
 #ClassList {
-  height: calc(100% - 37px);
-  /* overflow-y: auto; */
+  height: calc(100% - 60px);
+}
+
+body > div.nav #ClassList {
+  overflow-y: auto;
 }
 
 #ClassList > ul > li {
@@ -206,31 +209,28 @@ div.menu {
 }
 
 div.nav {
-  height: 100%;
   overflow-y: hidden;
   background: #f8f8f8; /* Can be any color, but is needed for horizontal scrolling of main content. */
-}
 
-/* @media (max-width: 839px) { */
-div.nav {
   -webkit-columns: 250px;
   -moz-columns: 250px;
-  columns: 250px;
+}
+
+#mainIndex div.nav {
+  height: 100%;
   padding-bottom: 90vh;
 }
-/* }
+body > div.nav {
+  position: absolute;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  overflow-x: hidden;
+}
 
-@media (min-width: 840px) {
-  div.nav {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 300px;
-    padding: 0 0 10px 0;
-  }
-} */
-
+body > div.nav > div.menu {
+  width: calc(100% - 15px);
+}
 .embedded div.nav {
   display: none;
 }
