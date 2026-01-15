@@ -8,6 +8,10 @@
     url(../fonts/SourceSansPro.woff) format('woff');
 }
 
+html {
+  height: 100%;
+}
+
 body {
   font-size: 12px;
   font-family: 'Source Sans Pro', 'Segoe UI', Arial, Geneva, sans-serif;
@@ -37,6 +41,11 @@ kbd {
 
 kbd + kbd {
   margin-left: 0.3em;
+}
+
+#ClassList {
+  height: calc(100% - 37px);
+  overflow-y: auto;
 }
 
 #ClassList > ul > li {
@@ -98,6 +107,8 @@ header {
   top: 0;
   left: 0;
   padding-left: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 @media (min-width: 840px) {
@@ -159,6 +170,7 @@ section {
 /* Start menu */
 div.menu {
   padding: 15px;
+  height: 100%;
 }
 
 .logo {
@@ -190,8 +202,8 @@ div.menu {
 }
 
 div.nav {
-  overflow-x: hidden;
-  overflow-y: auto;
+  height: 100%;
+  overflow-y: hidden;
   background: #f8f8f8; /* Can be any color, but is needed for horizontal scrolling of main content. */
 }
 
@@ -384,6 +396,11 @@ footer {
   margin: 0;
   border-bottom: 1px solid #ccc;
   font-family: Consolas, 'Liberation Mono', Menlo, 'Courier New', Courier, Monaco, monospace;
+}
+
+#main .content {
+  overflow-y: auto;
+  height: calc(100% - 55px);
 }
 
 #mainIndex .page-title {
