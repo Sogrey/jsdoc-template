@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ShapeFactory - JSDoc Documentation</title>
+
+    <!--[if lt IE 9]>
+      <script src="javascript/html5.js"></script>
+    <![endif]-->
+    <link href="styles/jsdoc-default.css" rel="stylesheet">
+    <link href="styles/prism.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">
+        <a href="index.html"><img src="images/logo.png" class="logo"></a>
+        ShapeFactory
+        <div class="titleCenterer"></div>
+    </h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <div class="class-description">图形工厂类</div>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+
+    
+        
+    <div class="nameContainer">
+    <h4 class="name" id="ShapeFactory">
+        <a href="#ShapeFactory" class="doc-link"></a>
+        new SDK.ShapeFactory<span class="signature">()</span>
+        
+
+
+    </h4>
+
+    </div>
+
+    
+
+
+<div class="description">
+    提供创建和管理图形的静态方法
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+    <div class="nameContainer">
+    <h4 class="name" id=".calculateTotalArea">
+        <a href="#.calculateTotalArea" class="doc-link"></a>
+        <span class="type-signature attribute-static">static</span> SDK.ShapeFactory.calculateTotalArea<span class="signature">(shapes)</span> &rarr; <span class="type-signature returnType">number</span>
+        
+
+
+    </h4>
+
+    </div>
+
+    
+
+
+<div class="description">
+    计算多个图形的总面积
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shapes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="Shape.html">Shape</a>></span>
+
+
+            
+            </td>
+
+            
+
+            <td class="description last">
+            
+                图形数组</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    所有图形的总面积
+</div>
+
+
+    
+
+
+
+
+<dl class="details">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+            
+    <div class="nameContainer">
+    <h4 class="name" id=".createShape">
+        <a href="#.createShape" class="doc-link"></a>
+        <span class="type-signature attribute-static">static</span> SDK.ShapeFactory.createShape<span class="signature">(type, options)</span> &rarr; <span class="type-signature returnType"><a href="Shape.html">Shape</a></span>
+        
+
+
+    </h4>
+
+    </div>
+
+    
+
+
+<div class="description">
+    根据类型创建图形
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ShapeType">ShapeType</a></span>
+
+
+            
+            </td>
+
+            
+
+            <td class="description last">
+            
+                图形类型</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            <td class="description last">
+            
+                图形配置选项
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            <td class="description last">
+            
+                
+                
+
+                
+            
+                图形名称</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            <td class="description last">
+            
+                
+                
+
+                
+            
+                X坐标</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            <td class="description last">
+            
+                
+                
+
+                
+            
+                Y坐标</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>radius</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            <td class="description last">
+            
+                
+                        <span class="optional">optional</span>
+                
+                
+
+                
+            
+                半径（圆形）</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>width</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            <td class="description last">
+            
+                
+                        <span class="optional">optional</span>
+                
+                
+
+                
+            
+                宽度（矩形）</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            <td class="description last">
+            
+                
+                        <span class="optional">optional</span>
+                
+                
+
+                
+            
+                高度（矩形）</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    创建的图形对象
+</div>
+
+
+    
+
+
+<h5>Throws:</h5>
+<ul>
+        <li>
+
+    <div class="param-desc">
+        
+<span class="param-type">Error</span>
+
+: 当图形类型不支持或参数不正确时抛出错误
+    </div>
+
+</li>
+    </ul>
+
+
+
+<dl class="details">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example:</h5>
+        
+    <pre><code class="language-javascript">// 创建一个圆形
+const circle = ShapeFactory.createShape(ShapeType.CIRCLE, {
+  name: 'myCircle',
+  x: 0,
+  y: 0,
+  radius: 5
+});
+
+// 创建一个矩形
+const rect = ShapeFactory.createShape(ShapeType.RECTANGLE, {
+  name: 'myRect',
+  x: 0,
+  y: 0,
+  width: 4,
+  height: 5
+});</code></pre>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+            
+    <div class="nameContainer">
+    <h4 class="name" id=".createShapes">
+        <a href="#.createShapes" class="doc-link"></a>
+        <span class="type-signature attribute-static">static</span> SDK.ShapeFactory.createShapes<span class="signature">(configs)</span> &rarr; <span class="type-signature returnType">Array.&lt;<a href="Shape.html">Shape</a>></span>
+        
+
+
+    </h4>
+
+    </div>
+
+    
+
+
+<div class="description">
+    批量创建图形
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>configs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+
+            <td class="description last">
+            
+                图形配置数组</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    创建的图形数组
+</div>
+
+
+    
+
+
+
+
+<dl class="details">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example:</h5>
+        
+    <pre><code class="language-javascript">const shapes = ShapeFactory.createShapes([
+  {
+    type: ShapeType.CIRCLE,
+    options: { name: 'c1', x: 0, y: 0, radius: 5 }
+  },
+  {
+    type: ShapeType.RECTANGLE,
+    options: { name: 'r1', x: 10, y: 10, width: 4, height: 5 }
+  }
+]);</code></pre>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+            
+    <div class="nameContainer">
+    <h4 class="name" id=".findShapeByName">
+        <a href="#.findShapeByName" class="doc-link"></a>
+        <span class="type-signature attribute-static">static</span> SDK.ShapeFactory.findShapeByName<span class="signature">(shapes, name)</span> &rarr; <span class="type-signature returnType"><a href="Shape.html">Shape</a>|undefined</span>
+        
+
+
+    </h4>
+
+    </div>
+
+    
+
+
+<div class="description">
+    根据名称查找图形
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shapes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="Shape.html">Shape</a>></span>
+
+
+            
+            </td>
+
+            
+
+            <td class="description last">
+            
+                图形数组</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            <td class="description last">
+            
+                要查找的图形名称</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    找到的图形，如果未找到返回undefined
+</div>
+
+
+    
+
+
+
+
+<dl class="details">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+    <div class="help">
+        Need help? Use AI.
+    </div>
+
+    <footer>
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a>
+    </footer>
+</div>
+
+<div class="nav">
+    <div class="menu">
+        <div class="search-wrapper">
+            <input type="text" class="classFilter" id="ClassFilter" placeholder="Search">
+            <div class="shortcut"><kbd>Ctrl</kbd><kbd>K</kbd></div>
+        </div>
+        <div id="ClassList"><ul><li data-name="Circle"><a href="Circle.html">Circle</a></li><li data-name="Event"><a href="global.html#Event">Event</a></li><li data-name="EventEmitter"><a href="EventEmitter.html">EventEmitter</a></li><li data-name="EventHandler"><a href="global.html#EventHandler">EventHandler</a></li><li data-name="ListenerOptions"><a href="global.html#ListenerOptions">ListenerOptions</a></li><li data-name="MathUtils"><a href="MathUtils.html">MathUtils</a></li><li data-name="Rectangle"><a href="Rectangle.html">Rectangle</a></li><li data-name="Shape"><a href="Shape.html">Shape</a></li><li data-name="ShapeFactory"><a href="ShapeFactory.html">ShapeFactory</a></li><li data-name="ShapeType"><a href="global.html#ShapeType">ShapeType</a></li></ul></div>
+    </div>
+</div>
+
+<script>
+if (window.frameElement) {
+    document.body.className = 'embedded';
+
+    var ele = document.createElement('a');
+    ele.className = 'popout';
+    ele.target = '_blank';
+    ele.href = window.location.href;
+    ele.title = 'Pop out';
+    document.getElementById('main').appendChild(ele);
+}
+
+// Set targets on external links.  Sandcastle and GitHub shouldn't be embedded in any iframe.
+Array.prototype.forEach.call(document.getElementsByTagName('a'), function(a) {
+    if (/^https?:/i.test(a.getAttribute('href'))) {
+        a.target='_blank';
+    }
+});
+</script>
+
+<script src="javascript/prism.js"></script>
+<script src="javascript/doc.js"></script>
+
+</body>
+</html>
