@@ -192,24 +192,6 @@ class User {
 }
 ```
 
-## IDE 推荐配置
-
-### VS Code
-
-推荐安装以下插件：
-
-- [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) - Vue 3 语言支持
-- [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) - Vue TypeScript 支持
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - 代码检查
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - 代码格式化
-
-### 浏览器开发工具
-
-推荐安装 Vue.js devtools：
-
-- [Chrome/Edge](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-- [Firefox](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-
 ## TypeScript 支持
 
 项目使用 `vue-tsc` 进行类型检查，以支持 `.vue` 文件的类型检查。编辑器中需要安装 [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) 插件以获得完整的 TypeScript 支持。
