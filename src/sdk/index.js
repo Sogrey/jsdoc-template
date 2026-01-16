@@ -11,7 +11,10 @@ export { Circle } from './Circle.js'
 export { Rectangle } from './Rectangle.js'
 
 // 工厂类
-export { ShapeFactory, ShapeType } from './ShapeFactory.js'
+export { ShapeFactory } from './ShapeFactory.js'
+
+// 图形类型枚举
+export * as ShapeType from './ShapeType.js'
 
 // 工具类
 export { MathUtils } from './MathUtils.js'

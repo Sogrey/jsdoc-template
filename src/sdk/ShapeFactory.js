@@ -5,34 +5,8 @@
 import { Shape } from './Shape.js'
 import { Circle } from './Circle.js'
 import { Rectangle } from './Rectangle.js'
+import ShapeType from './ShapeType.js'
 
-/**
- * 图形类型枚举
- * @enum {string}
- */
-export const ShapeType = Object.freeze({
-  /**
-   * 圆形
-   *
-   * @type {String}
-   * @constant
-   */
-  CIRCLE: 'circle',
-  /**
-   * 矩形
-   *
-   * @type {String}
-   * @constant
-   */
-  RECTANGLE: 'rectangle',
-  /**
-   * 三角形
-   *
-   * @type {String}
-   * @constant
-   */
-  TRIANGLE: 'triangle',
-})
 
 /**
  * 图形工厂类
