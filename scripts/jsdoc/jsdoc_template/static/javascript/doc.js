@@ -85,4 +85,16 @@
       }
     }
   });
+
+  // 获取滚动容器元素
+  const scrollBox = document.querySelector('#mainIndex > .nav');
+
+  // 监听鼠标滚轮事件，实现横向滚动（修正方向）
+  scrollBox.addEventListener('wheel', function (e) {
+    // 阻止默认的纵向滚动行为（避免页面整体滚动）
+    e.preventDefault();
+
+    // 实现 向下滚轮 → 向右滚动，向上滚轮 → 向左滚动
+    scrollBox.scrollLeft += e.deltaY * 1.5;
+  }, { passive: false }); // passive: false 确保能正常调用 preventDefault
 })();
