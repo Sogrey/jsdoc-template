@@ -413,11 +413,33 @@ export class Shape {
  * 图形类型枚举
  */
 export type ShapeType = string;
-export namespace ShapeType {
-    let CIRCLE: string;
-    let RECTANGLE: string;
-    let TRIANGLE: string;
-}
+/**
+ * 图形类型枚举
+ * @enum {string}
+ */
+export const ShapeType: Readonly<{
+    /**
+     * 圆形
+     *
+     * @type {String}
+     * @constant
+     */
+    CIRCLE: string;
+    /**
+     * 矩形
+     *
+     * @type {String}
+     * @constant
+     */
+    RECTANGLE: string;
+    /**
+     * 三角形
+     *
+     * @type {String}
+     * @constant
+     */
+    TRIANGLE: string;
+}>;
 /**
  * 图形工厂类
  * @class

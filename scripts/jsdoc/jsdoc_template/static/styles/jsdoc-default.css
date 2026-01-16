@@ -18,7 +18,6 @@ body {
   margin: 0;
   color: #000;
   height: 100%;
-  background-color: white;
 }
 
 .hide {
@@ -193,12 +192,29 @@ div.menu {
 #mainIndex .logo-wrapper {
   padding: 15px;
   padding-bottom: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+}
+
+#mainIndex .logo-wrapper > a {
+  display: inline-block;
 }
 
 #mainIndex .logo-wrapper .logo {
   float: none;
   position: static;
   height: 60px;
+}
+
+#mainIndex .logo-wrapper > span.version {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 24px;
+  color: #666;
+  font-weight: bold;
 }
 
 .titleCenterer {

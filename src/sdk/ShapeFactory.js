@@ -10,7 +10,7 @@ import { Rectangle } from './Rectangle.js'
  * 图形类型枚举
  * @enum {string}
  */
-const ShapeType = {
+export const ShapeType = Object.freeze({
   /**
    * 圆形
    *
@@ -32,9 +32,7 @@ const ShapeType = {
    * @constant
    */
   TRIANGLE: 'triangle',
-}
-
-export default Object.freeze(ShapeType);
+})
 
 /**
  * 图形工厂类

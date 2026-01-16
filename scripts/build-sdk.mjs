@@ -14,14 +14,21 @@ import { execSync } from 'child_process'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-// 读取 package.json
-const pkgContent = readFileSync(resolve(__dirname, '../package.json'), 'utf-8')
-const pkg = JSON.parse(pkgContent)
-
 // 输出目录
 const OUTPUT_DIR = resolve(__dirname, '../Build/SDK')
 // SDK 模板目录
 const SDK_TEMPLATE_DIR = resolve(__dirname, './sdk')
+
+// 读取 package.json
+const pkgContent = readFileSync(resolve(__dirname, '../package.json'), 'utf-8')
+const pkg = JSON.parse(pkgContent)
+
+// 读取 SDK package.json 模板
+const sdkPkgContent = readFileSync(resolve(SDK_TEMPLATE_DIR, 'package.json'), 'utf-8')
+const sdkPkg = JSON.parse(sdkPkgContent)
+
+// 更新 SDK 版本号
+sdkPkg.version = pkg.version
 
 // 清空输出目录
 function cleanOutputDir() {
@@ -107,12 +114,13 @@ function generateTypeDefinitions() {
 // 复制 SDK 配置文件
 function copySDKConfigFiles() {
   try {
-    // 复制 package.json
-    copyFileSync(
-      resolve(SDK_TEMPLATE_DIR, 'package.json'),
-      resolve(OUTPUT_DIR, 'package.json')
+    // 写入更新后的 package.json
+    writeFileSync(
+      resolve(OUTPUT_DIR, 'package.json'),
+      JSON.stringify(sdkPkg, null, 2),
+      'utf-8'
     )
-    console.log('✓ 已复制 package.json')
+    console.log('✓ 已复制并更新 package.json (版本:', pkg.version + ')')
 
     // 复制 README.md
     copyFileSync(

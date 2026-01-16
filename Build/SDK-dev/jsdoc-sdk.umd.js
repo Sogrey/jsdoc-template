@@ -196,14 +196,29 @@
       return `Rectangle: ${this.name} at (${this.x}, ${this.y}) with size ${this.width}x${this.height}`;
     }
   }
-  const ShapeType = {
-    /** 圆形 */
+  const ShapeType = Object.freeze({
+    /**
+     * 圆形
+     *
+     * @type {String}
+     * @constant
+     */
     CIRCLE: "circle",
-    /** 矩形 */
+    /**
+     * 矩形
+     *
+     * @type {String}
+     * @constant
+     */
     RECTANGLE: "rectangle",
-    /** 三角形 */
+    /**
+     * 三角形
+     *
+     * @type {String}
+     * @constant
+     */
     TRIANGLE: "triangle"
-  };
+  });
   class ShapeFactory {
     /**
      * 根据类型创建图形
