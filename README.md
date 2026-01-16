@@ -155,9 +155,9 @@ pnpm run build:sdk
 ```
 
 SDK 构建输出到 `Build/SDK/` 目录，包含：
-- `jsdoc-sdk.es.js` - ES Module 格式
-- `jsdoc-sdk.cjs.js` - CommonJS 格式
-- `jsdoc-sdk.umd.js` - UMD 格式（浏览器直接使用）
+- `jsdoc-sdk.es.js` - ES Module 格式。适用于现代浏览器和构建工具，支持 tree-shaking，按需加载。
+- `jsdoc-sdk.cjs.js` - CommonJS 格式。适用于 Node.js 环境。
+- `jsdoc-sdk.umd.js` - UMD 格式（浏览器直接使用）。兼容各种环境，但体积较大。
 - 对应的 `.js.map` source map 文件
 
 ### SDK 测试

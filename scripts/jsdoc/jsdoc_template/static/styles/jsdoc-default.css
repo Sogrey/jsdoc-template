@@ -210,8 +210,6 @@ div.menu {
 
 div.nav {
   overflow-y: hidden;
-  background: #f8f8f8; /* Can be any color, but is needed for horizontal scrolling of main content. */
-
   -webkit-columns: 250px;
   -moz-columns: 250px;
 }
@@ -229,7 +227,7 @@ body > div.nav {
 }
 
 body > div.nav > div.menu {
-  width: calc(100% - 15px);
+  /* width: calc(100% - 15px); */
 }
 .embedded div.nav {
   display: none;

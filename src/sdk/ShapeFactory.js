@@ -10,14 +10,31 @@ import { Rectangle } from './Rectangle.js'
  * 图形类型枚举
  * @enum {string}
  */
-export const ShapeType = {
-  /** 圆形 */
+const ShapeType = {
+  /**
+   * 圆形
+   *
+   * @type {String}
+   * @constant
+   */
   CIRCLE: 'circle',
-  /** 矩形 */
+  /**
+   * 矩形
+   *
+   * @type {String}
+   * @constant
+   */
   RECTANGLE: 'rectangle',
-  /** 三角形 */
+  /**
+   * 三角形
+   *
+   * @type {String}
+   * @constant
+   */
   TRIANGLE: 'triangle',
 }
+
+export default Object.freeze(ShapeType);
 
 /**
  * 图形工厂类

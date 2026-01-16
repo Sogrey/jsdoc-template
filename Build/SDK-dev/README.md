@@ -21,6 +21,24 @@ pnpm add jsdoc-sdk
 
 ## 使用方式
 
+### TypeScript
+```typescript
+import { ShapeFactory, Circle, Rectangle, EventEmitter, ShapeType } from 'jsdoc-sdk'
+
+// 创建图形（带类型提示）
+const circle: Circle = new Circle('myCircle', 0, 0, 5)
+console.log(circle.getArea())
+
+// 使用工厂创建
+const rect: Rectangle = ShapeFactory.createShape(ShapeType.RECTANGLE, {
+  name: 'myRect',
+  x: 0,
+  y: 0,
+  width: 4,
+  height: 5
+}) as Rectangle
+```
+
 ### ES Module
 ```javascript
 import { ShapeFactory, Circle, Rectangle, EventEmitter } from 'jsdoc-sdk'
@@ -63,6 +81,21 @@ console.log(circle.getArea())
 
 完整的 API 文档请参考项目主文档。
 
+## TypeScript 支持
+
+本 SDK 提供完整的 TypeScript 类型定义文件（`.d.ts`），在 TypeScript 项目中使用时将获得：
+
+- ✅ 完整的类型提示和自动补全
+- ✅ 编译时类型检查
+- ✅ 参数类型验证
+- ✅ 智能提示文档
+
+类型定义文件会在安装包时自动包含，无需额外配置。如果类型提示未生效，请确保：
+
+1. TypeScript 版本 >= 4.0
+2. `tsconfig.json` 中 `moduleResolution` 设置为 `'node'` 或 `'bundler'`
+3. 安装了包的 `types` 字段正确指向类型文件
+
 ## 特性
 
 - 📐 支持多种几何图形（圆形、矩形等）
@@ -72,6 +105,7 @@ console.log(circle.getArea())
 - 🧮 数学工具类（MathUtils）
 - 📚 完整的 JSDoc 文档
 - 📦 提供 Source Map
+- 🔷 支持 TypeScript 类型定义
 
 ## 主要类
 
