@@ -1,6 +1,6 @@
 {
   "name": "jsdoc-sdk",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "JSDoc SDK - 一个用于生成和管理几何图形的工具库",
   "main": "jsdoc-sdk.cjs.js",
   "module": "jsdoc-sdk.es.js",
