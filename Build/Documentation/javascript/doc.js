@@ -95,6 +95,6 @@
     e.preventDefault();
 
     // 实现 向下滚轮 → 向右滚动，向上滚轮 → 向左滚动
-    scrollBox.scrollLeft += e.deltaY * 1.5;
+    scrollBox.scrollLeft += e.deltaY * 0.3;
   }, { passive: false }); // passive: false 确保能正常调用 preventDefault
 })();
