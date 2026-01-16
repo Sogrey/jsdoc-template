@@ -90,7 +90,7 @@
   const scrollBox = document.querySelector('#mainIndex > .nav');
 
   // 监听鼠标滚轮事件，实现横向滚动（修正方向）
-  scrollBox.addEventListener('wheel', function (e) {
+  scrollBox?.addEventListener('wheel', function (e) {
     // 阻止默认的纵向滚动行为（避免页面整体滚动）
     e.preventDefault();
 
