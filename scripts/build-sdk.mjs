@@ -3,6 +3,11 @@
 /**
  * SDK 构建脚本
  * 用于构建 SDK 的多种格式输出
+ * 
+ * 用法:
+ *   node build-sdk.mjs          # 构建生产版本
+ *   node build-sdk.mjs --dev    # 构建开发版本
+ *   node build-sdk.mjs --all    # 构建所有版本
  */
 
 import { build } from 'vite'
@@ -14,8 +19,14 @@ import { execSync } from 'child_process'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
+// 解析命令行参数
+const args = process.argv.slice(2)
+const isDev = args.includes('--dev')
+const isAll = args.includes('--all')
+
 // 输出目录
 const OUTPUT_DIR = resolve(__dirname, '../Build/SDK')
+const OUTPUT_DIR_DEV = resolve(__dirname, '../Build/SDK-dev')
 // SDK 模板目录
 const SDK_TEMPLATE_DIR = resolve(__dirname, './sdk')
 
@@ -31,45 +42,52 @@ const sdkPkg = JSON.parse(sdkPkgContent)
 sdkPkg.version = pkg.version
 
 // 清空输出目录
-function cleanOutputDir() {
-  if (existsSync(OUTPUT_DIR)) {
-    rmSync(OUTPUT_DIR, { recursive: true, force: true })
-    console.log('✓ 已清空输出目录:', OUTPUT_DIR)
+function cleanOutputDir(outputDir) {
+  if (existsSync(outputDir)) {
+    rmSync(outputDir, { recursive: true, force: true })
+    console.log('✓ 已清空输出目录:', outputDir)
   }
-  mkdirSync(OUTPUT_DIR, { recursive: true })
-  console.log('✓ 已创建输出目录:', OUTPUT_DIR)
+  mkdirSync(outputDir, { recursive: true })
+  console.log('✓ 已创建输出目录:', outputDir)
 }
 
-// 清理 source map 文件，移除 sourcesContent 并压缩 JSON 以减小文件大小
-function cleanSourceMaps() {
+// 清理/格式化 source map 文件
+function processSourceMaps(outputDir, isDevMode) {
   try {
-    const files = readdirSync(OUTPUT_DIR)
+    const files = readdirSync(outputDir)
 
     for (const file of files) {
       if (file.endsWith('.map')) {
-        const mapPath = resolve(OUTPUT_DIR, file)
+        const mapPath = resolve(outputDir, file)
         const mapContent = readFileSync(mapPath, 'utf-8')
         const map = JSON.parse(mapContent)
 
-        // 移除 sourcesContent 以减小文件大小
-        if (map.sourcesContent) {
-          delete map.sourcesContent
-          // 生产版压缩到一行
-          writeFileSync(mapPath, JSON.stringify(map), 'utf-8')
-          console.log(`✓ 已清理并压缩 source map: ${file}`)
+        if (isDevMode) {
+          // 开发版格式化 JSON 便于查看
+          writeFileSync(mapPath, JSON.stringify(map, null, 2), 'utf-8')
+          console.log(`✓ 已格式化 source map: ${file}`)
+        } else {
+          // 生产版移除 sourcesContent 以减小文件大小
+          if (map.sourcesContent) {
+            delete map.sourcesContent
+            writeFileSync(mapPath, JSON.stringify(map), 'utf-8')
+            console.log(`✓ 已清理并压缩 source map: ${file}`)
+          }
         }
       }
     }
   } catch (error) {
-    console.warn('清理 source map 时出现问题:', error.message)
+    console.warn('处理 source map 时出现问题:', error.message)
   }
 }
 
 // 使用 TypeScript 编译器生成类型定义
-function generateTypeDefinitions() {
+function generateTypeDefinitions(outputDir) {
   try {
+    const outDir = outputDir.replace(/.*\/Build\//, './Build/')
+    
     // 使用 TypeScript 编译器生成类型定义
-    execSync('npx tsc --project ./tsconfig.types.json --declaration --emitDeclarationOnly --outDir ./Build/SDK', {
+    execSync(`npx tsc --project ./tsconfig.types.json --declaration --emitDeclarationOnly --outDir ${outDir}`, {
       cwd: resolve(__dirname, '..'),
       stdio: 'inherit'
     })
@@ -77,32 +95,32 @@ function generateTypeDefinitions() {
     console.log('✓ 已生成 TypeScript 类型定义文件')
     
     // 合并所有 .d.ts 文件为一个 jsdoc-sdk.d.ts
-    const outputFiles = readdirSync(OUTPUT_DIR).filter(f => f.endsWith('.d.ts') && f !== 'jsdoc-sdk.d.ts')
+    const outputFiles = readdirSync(outputDir).filter(f => f.endsWith('.d.ts') && f !== 'jsdoc-sdk.d.ts')
     
     let combinedContent = ''
     
     // 读取所有生成的 .d.ts 文件并合并
     for (const dtsFile of outputFiles) {
-      const dtsPath = resolve(OUTPUT_DIR, dtsFile)
+      const dtsPath = resolve(outputDir, dtsFile)
       const content = readFileSync(dtsPath, 'utf-8')
       combinedContent += content + '\n\n'
     }
     
     // 写入合并后的 jsdoc-sdk.d.ts
-    const jsdocDtsPath = resolve(OUTPUT_DIR, 'jsdoc-sdk.d.ts')
+    const jsdocDtsPath = resolve(outputDir, 'jsdoc-sdk.d.ts')
     writeFileSync(jsdocDtsPath, combinedContent, 'utf-8')
     console.log('✓ 已合并所有类型定义到 jsdoc-sdk.d.ts')
     
     // 删除单独的 .d.ts 文件
     for (const dtsFile of outputFiles) {
-      const dtsPath = resolve(OUTPUT_DIR, dtsFile)
+      const dtsPath = resolve(outputDir, dtsFile)
       rmSync(dtsPath)
     }
     
     // 删除所有 .d.ts.map 文件
-    const mapFiles = readdirSync(OUTPUT_DIR).filter(f => f.endsWith('.d.ts.map'))
+    const mapFiles = readdirSync(outputDir).filter(f => f.endsWith('.d.ts.map'))
     for (const mapFile of mapFiles) {
-      const mapPath = resolve(OUTPUT_DIR, mapFile)
+      const mapPath = resolve(outputDir, mapFile)
       rmSync(mapPath)
     }
     console.log('✓ 已删除 .d.ts.map 文件')
@@ -112,11 +130,11 @@ function generateTypeDefinitions() {
 }
 
 // 复制 SDK 配置文件
-function copySDKConfigFiles() {
+function copySDKConfigFiles(outputDir) {
   try {
     // 写入更新后的 package.json
     writeFileSync(
-      resolve(OUTPUT_DIR, 'package.json'),
+      resolve(outputDir, 'package.json'),
       JSON.stringify(sdkPkg, null, 2),
       'utf-8'
     )
@@ -125,7 +143,7 @@ function copySDKConfigFiles() {
     // 复制 README.md
     copyFileSync(
       resolve(SDK_TEMPLATE_DIR, 'README.md'),
-      resolve(OUTPUT_DIR, 'README.md')
+      resolve(outputDir, 'README.md')
     )
     console.log('✓ 已复制 README.md')
   } catch (error) {
@@ -134,38 +152,43 @@ function copySDKConfigFiles() {
 }
 
 // 构建 SDK
-async function buildSDK() {
+async function buildSDK(isDevMode = false) {
+  const outputDir = isDevMode ? OUTPUT_DIR_DEV : OUTPUT_DIR
+  const modeName = isDevMode ? '开发模式' : '生产版本'
+  const configFile = isDevMode ? '../vite.config.sdk.dev.ts' : '../vite.config.sdk.ts'
+  const mode = isDevMode ? 'development' : 'production'
+
   console.log('\n========================================')
-  console.log('开始构建 SDK')
+  console.log(`开始构建 SDK (${modeName})`)
   console.log('========================================\n')
 
   try {
     // 清空输出目录
-    cleanOutputDir()
+    cleanOutputDir(outputDir)
 
-    console.log('\n正在构建...\n')
+    console.log(`\n正在构建 (${modeName})...\n`)
 
     // 调用 Vite 构建
     await build({
-      configFile: resolve(__dirname, '../vite.config.sdk.ts'),
-      mode: 'production'
+      configFile: resolve(__dirname, configFile),
+      mode
     })
 
-    // 生产版清理 source map（移除 sourcesContent 以减小文件大小）
-    console.log('\n清理 source map 文件...\n')
-    cleanSourceMaps()
+    // 处理 source map
+    console.log(`\n处理 source map 文件...\n`)
+    processSourceMaps(outputDir, isDevMode)
 
     // 生成 TypeScript 类型定义文件
     console.log('\n生成类型定义文件...\n')
-    generateTypeDefinitions()
+    generateTypeDefinitions(outputDir)
 
     // 复制配置文件
-    copySDKConfigFiles()
+    copySDKConfigFiles(outputDir)
 
     console.log('\n========================================')
     console.log('✓ SDK 构建成功!')
     console.log('========================================\n')
-    console.log('输出目录:', OUTPUT_DIR)
+    console.log('输出目录:', outputDir)
     console.log('\n生成的文件:')
     console.log('  - jsdoc-sdk.es.js       (ES Module)')
     console.log('  - jsdoc-sdk.es.js.map   (ES Module Source Map)')
@@ -186,5 +209,21 @@ async function buildSDK() {
   }
 }
 
-// 执行构建
-buildSDK()
+// 主入口
+async function main() {
+  if (isAll) {
+    // 构建所有版本
+    console.log('\n>>> 构建开发版本 <<<')
+    await buildSDK(true)
+    console.log('\n>>> 构建生产版本 <<<')
+    await buildSDK(false)
+  } else if (isDev) {
+    // 仅构建开发版本
+    await buildSDK(true)
+  } else {
+    // 默认构建生产版本
+    await buildSDK(false)
+  }
+}
+
+main()

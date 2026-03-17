@@ -14,7 +14,7 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/",
-    "build:sdk": "node scripts/build-sdk-dev.mjs && node scripts/build-sdk.mjs",
+    "build:sdk": "node scripts/build-sdk.mjs --all",
     "docs": "node scripts/jsdoc/generate-config.mjs && npx jsdoc --configure scripts/jsdoc/conf.generated.json --pedantic",
     "docs-watch": "nodemon --watch src/sdk --ext js --exec \"npm run docs\"",
     "docs:serve": "npm run docs && npx http-server Build/Documentation -o -p 8081",
