@@ -155,7 +155,7 @@ function copySDKConfigFiles(outputDir) {
 async function buildSDK(isDevMode = false) {
   const outputDir = isDevMode ? OUTPUT_DIR_DEV : OUTPUT_DIR
   const modeName = isDevMode ? '开发模式' : '生产版本'
-  const configFile = isDevMode ? '../vite.config.sdk.dev.ts' : '../vite.config.sdk.ts'
+  const configFile = '../vite.config.sdk.ts'
   const mode = isDevMode ? 'development' : 'production'
 
   console.log('\n========================================')

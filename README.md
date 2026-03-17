@@ -243,15 +243,14 @@ class User {
 
 - **Vite 配置**:
   - [vite.config.ts](./vite.config.ts) - 应用开发配置
-  - [vite.config.sdk.ts](./vite.config.sdk.ts) - SDK 打包配置
-  - [vite.config.sdk.dev.ts](./vite.config.sdk.dev.ts) - 开发版 SDK 打包配置
+  - [vite.config.sdk.ts](./vite.config.sdk.ts) - SDK 打包配置（支持开发和生产模式）
 - **TypeScript 配置**:
   - [tsconfig.json](./tsconfig.json) - 主配置文件
   - [tsconfig.app.json](./tsconfig.app.json) - 应用配置
   - [tsconfig.node.json](./tsconfig.node.json) - Node 环境配置
 - **ESLint 配置**: 查看 [eslint.config.ts](./eslint.config.ts)
 - **JSDoc 配置**: 查看 [scripts/jsdoc/conf.json](./scripts/jsdoc/conf.json)
-- **SDK 配置**: 查看 [vite.config.sdk.ts](./vite.config.sdk.ts) 和 [vite.config.sdk.dev.ts](./vite.config.sdk.dev.ts)
+- **SDK 配置**: 查看 [vite.config.sdk.ts](./vite.config.sdk.ts)
 
 ## SDK 使用示例
 
