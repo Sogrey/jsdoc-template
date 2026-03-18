@@ -155,10 +155,12 @@ pnpm run build:sdk
 ```
 
 SDK 构建输出到 `Build/SDK/` 目录，包含：
-- `jsdoc-sdk.es.js` - ES Module 格式。适用于现代浏览器和构建工具，支持 tree-shaking，按需加载。
-- `jsdoc-sdk.cjs.js` - CommonJS 格式。适用于 Node.js 环境。
-- `jsdoc-sdk.umd.js` - UMD 格式（浏览器直接使用）。兼容各种环境，但体积较大。
+- `{SDK_NAME}.es.js` - ES Module 格式。适用于现代浏览器和构建工具，支持 tree-shaking，按需加载。
+- `{SDK_NAME}.cjs.js` - CommonJS 格式。适用于 Node.js 环境。
+- `{SDK_NAME}.umd.js` - UMD 格式（浏览器直接使用）。兼容各种环境，但体积较大。
 - 对应的 `.js.map` source map 文件
+
+> **注意**: `{SDK_NAME}` 默认为 `my-sdk`，可在 `package.json` 的 `sdk.name` 字段中配置。
 
 ### SDK 测试
 
@@ -257,7 +259,7 @@ class User {
 ### 在 Node.js 环境使用（CommonJS）
 
 ```javascript
-const { Circle, Rectangle, ShapeFactory, EventEmitter } = require('./Build/SDK/jsdoc-sdk.cjs.js')
+const { Circle, Rectangle, ShapeFactory, EventEmitter } = require('./Build/SDK/{SDK_NAME}.cjs.js')
 
 const circle = new Circle('myCircle', 0, 0, 5)
 console.log(circle.getArea())
@@ -266,7 +268,7 @@ console.log(circle.getArea())
 ### 在浏览器中使用（UMD）
 
 ```html
-<script src="./Build/SDK/jsdoc-sdk.umd.js"></script>
+<script src="./Build/SDK/{SDK_NAME}.umd.js"></script>
 <script>
   const { Circle, ShapeFactory } = JSDocSDK
   const circle = new Circle('myCircle', 0, 0, 5)
@@ -277,7 +279,7 @@ console.log(circle.getArea())
 ### 在模块化环境使用（ES Module）
 
 ```javascript
-import { Circle, ShapeFactory } from './Build/SDK/jsdoc-sdk.es.js'
+import { Circle, ShapeFactory } from './Build/SDK/{SDK_NAME}.es.js'
 
 const circle = new Circle('myCircle', 0, 0, 5)
 console.log(circle.getArea())

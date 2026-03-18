@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
+  "sdk": {
+    "name": "my-sdk"
+  },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },

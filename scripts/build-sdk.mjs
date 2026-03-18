@@ -34,12 +34,8 @@ const SDK_TEMPLATE_DIR = resolve(__dirname, './sdk')
 const pkgContent = readFileSync(resolve(__dirname, '../package.json'), 'utf-8')
 const pkg = JSON.parse(pkgContent)
 
-// 读取 SDK package.json 模板
-const sdkPkgContent = readFileSync(resolve(SDK_TEMPLATE_DIR, 'package.json'), 'utf-8')
-const sdkPkg = JSON.parse(sdkPkgContent)
-
-// 更新 SDK 版本号
-sdkPkg.version = pkg.version
+// SDK 名称（默认 my-sdk）
+const SDK_NAME = pkg.sdk?.name || 'my-sdk'
 
 // 清空输出目录
 function cleanOutputDir(outputDir) {
@@ -94,8 +90,9 @@ function generateTypeDefinitions(outputDir) {
     
     console.log('✓ 已生成 TypeScript 类型定义文件')
     
-    // 合并所有 .d.ts 文件为一个 jsdoc-sdk.d.ts
-    const outputFiles = readdirSync(outputDir).filter(f => f.endsWith('.d.ts') && f !== 'jsdoc-sdk.d.ts')
+    // 合并所有 .d.ts 文件为一个 {SDK_NAME}.d.ts
+    const dtsFileName = `${SDK_NAME}.d.ts`
+    const outputFiles = readdirSync(outputDir).filter(f => f.endsWith('.d.ts') && f !== dtsFileName)
     
     let combinedContent = ''
     
@@ -106,10 +103,10 @@ function generateTypeDefinitions(outputDir) {
       combinedContent += content + '\n\n'
     }
     
-    // 写入合并后的 jsdoc-sdk.d.ts
-    const jsdocDtsPath = resolve(outputDir, 'jsdoc-sdk.d.ts')
+    // 写入合并后的 {SDK_NAME}.d.ts
+    const jsdocDtsPath = resolve(outputDir, dtsFileName)
     writeFileSync(jsdocDtsPath, combinedContent, 'utf-8')
-    console.log('✓ 已合并所有类型定义到 jsdoc-sdk.d.ts')
+    console.log(`✓ 已合并所有类型定义到 ${dtsFileName}`)
     
     // 删除单独的 .d.ts 文件
     for (const dtsFile of outputFiles) {
@@ -132,13 +129,19 @@ function generateTypeDefinitions(outputDir) {
 // 复制 SDK 配置文件
 function copySDKConfigFiles(outputDir) {
   try {
+    // 读取 SDK package.json 模板并替换占位符
+    let sdkPkgContent = readFileSync(resolve(SDK_TEMPLATE_DIR, 'package.json'), 'utf-8')
+    sdkPkgContent = sdkPkgContent.replace(/{{SDK_NAME}}/g, SDK_NAME)
+    const sdkPkgFinal = JSON.parse(sdkPkgContent)
+    sdkPkgFinal.version = pkg.version
+
     // 写入更新后的 package.json
     writeFileSync(
       resolve(outputDir, 'package.json'),
-      JSON.stringify(sdkPkg, null, 2),
+      JSON.stringify(sdkPkgFinal, null, 2),
       'utf-8'
     )
-    console.log('✓ 已复制并更新 package.json (版本:', pkg.version + ')')
+    console.log('✓ 已复制并更新 package.json (版本:', pkg.version + ', 名称:', SDK_NAME + ')')
 
     // 复制 README.md
     copyFileSync(
@@ -190,13 +193,13 @@ async function buildSDK(isDevMode = false) {
     console.log('========================================\n')
     console.log('输出目录:', outputDir)
     console.log('\n生成的文件:')
-    console.log('  - jsdoc-sdk.es.js       (ES Module)')
-    console.log('  - jsdoc-sdk.es.js.map   (ES Module Source Map)')
-    console.log('  - jsdoc-sdk.cjs.js      (CommonJS)')
-    console.log('  - jsdoc-sdk.cjs.js.map  (CommonJS Source Map)')
-    console.log('  - jsdoc-sdk.umd.js      (UMD)')
-    console.log('  - jsdoc-sdk.umd.js.map  (UMD Source Map)')
-    console.log('  - jsdoc-sdk.d.ts        (TypeScript 类型定义)')
+    console.log(`  - ${SDK_NAME}.es.js       (ES Module)`)
+    console.log(`  - ${SDK_NAME}.es.js.map   (ES Module Source Map)`)
+    console.log(`  - ${SDK_NAME}.cjs.js      (CommonJS)`)
+    console.log(`  - ${SDK_NAME}.cjs.js.map  (CommonJS Source Map)`)
+    console.log(`  - ${SDK_NAME}.umd.js      (UMD)`)
+    console.log(`  - ${SDK_NAME}.umd.js.map  (UMD Source Map)`)
+    console.log(`  - ${SDK_NAME}.d.ts        (TypeScript 类型定义)`)
     console.log('  - package.json          (NPM 配置)')
     console.log('  - README.md             (使用文档)')
     console.log()

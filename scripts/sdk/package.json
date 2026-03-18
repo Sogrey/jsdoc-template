@@ -1,18 +1,18 @@
 {
-  "name": "jsdoc-sdk",
+  "name": "{{SDK_NAME}}",
   "version": "1.0.0",
   "description": "JSDoc SDK - 一个用于生成和管理几何图形的工具库",
-  "main": "jsdoc-sdk.cjs.js",
-  "module": "jsdoc-sdk.es.js",
-  "types": "jsdoc-sdk.d.ts",
+  "main": "{{SDK_NAME}}.cjs.js",
+  "module": "{{SDK_NAME}}.es.js",
+  "types": "{{SDK_NAME}}.d.ts",
   "exports": {
     ".": {
-      "import": "./jsdoc-sdk.es.js",
-      "require": "./jsdoc-sdk.cjs.js",
-      "types": "./jsdoc-sdk.d.ts"
+      "import": "./{{SDK_NAME}}.es.js",
+      "require": "./{{SDK_NAME}}.cjs.js",
+      "types": "./{{SDK_NAME}}.d.ts"
     }
   },
-  "browser": "jsdoc-sdk.umd.js",
+  "browser": "{{SDK_NAME}}.umd.js",
   "files": [
     "*.js",
     "*.js.map",
