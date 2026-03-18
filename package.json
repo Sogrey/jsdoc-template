@@ -5,7 +5,7 @@
   "type": "module",
   "sdk": {
     "name": "my-sdk",
-    "namespace": "SDK"
+    "namespace": "MySDK"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

@@ -32,9 +32,10 @@ const conf = JSON.parse(confContent)
 // 添加版本号到配置
 conf.version = pkg.version
 
-// 添加 SDK 配置供模板使用
-conf._sdkName = sdkName
-conf._sdkNamespace = sdkNamespace
+// 添加 SDK 配置到 templates 下供模板使用
+conf.templates = conf.templates || {}
+conf.templates._sdkName = sdkName
+conf.templates._sdkNamespace = sdkNamespace
 
 // 添加生成时间戳（用于调试）
 conf._generatedAt = new Date().toISOString()

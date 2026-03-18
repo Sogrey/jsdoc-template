@@ -2,7 +2,8 @@
 var data = obj;
 var self = this;
 var internalConstructorTag = data.isInternalConstructor ? "<span class=\"signature-internal-constructor\">internal constructor</span> " : "";
-var namespace = (conf && conf._sdkNamespace) ? conf._sdkNamespace : 'SDK';
+/* global env: true */
+var namespace = (env && env.conf && env.conf.templates && env.conf.templates._sdkNamespace) ? env.conf.templates._sdkNamespace : 'SDK';
 ?>
 <div class="nameContainer">
 <h4 class="name" id="<?js= id ?>">
