@@ -6,6 +6,7 @@ import dts from 'vite-plugin-dts'
 // 读取 package.json 获取 SDK 配置
 const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'))
 const sdkName = pkg.sdk?.name || 'my-sdk'
+const sdkNamespace = pkg.sdk?.namespace || 'SDK'
 
 /**
  * SDK 打包配置
@@ -50,7 +51,7 @@ export default defineConfig(({ mode }) => {
       outDir,
       lib: {
         entry: fileURLToPath(new URL('./src/sdk/index.js', import.meta.url)),
-        name: 'JSDocSDK',
+        name: sdkNamespace,
         fileName: (format) => `${sdkName}.${format}.js`,
         formats: ['es', 'cjs', 'umd']
       },
