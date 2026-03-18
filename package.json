@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "sdk": {
-    "name": "my-sdk"
+    "name": "my-sdk",
+    "namespace": "SDK"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

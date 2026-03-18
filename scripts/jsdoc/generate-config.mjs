@@ -20,6 +20,10 @@ const pkgPath = resolve(__dirname, '../../package.json')
 const pkgContent = readFileSync(pkgPath, 'utf-8')
 const pkg = JSON.parse(pkgContent)
 
+// SDK 配置
+const sdkName = pkg.sdk?.name || 'my-sdk'
+const sdkNamespace = pkg.sdk?.namespace || 'SDK'
+
 // 读取基础 JSDoc 配置
 const confPath = resolve(__dirname, 'conf.json')
 const confContent = readFileSync(confPath, 'utf-8')
@@ -27,6 +31,10 @@ const conf = JSON.parse(confContent)
 
 // 添加版本号到配置
 conf.version = pkg.version
+
+// 添加 SDK 配置供模板使用
+conf._sdkName = sdkName
+conf._sdkNamespace = sdkNamespace
 
 // 添加生成时间戳（用于调试）
 conf._generatedAt = new Date().toISOString()
