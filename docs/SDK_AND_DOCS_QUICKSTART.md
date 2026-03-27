@@ -298,7 +298,7 @@ scripts/jsdoc/conf.generated.json
 
 ### 修改 SDK 名称和命名空间
 
-**方式一：修改 package.json**
+**修改 package.json**
 
 ```json
 {
@@ -309,7 +309,7 @@ scripts/jsdoc/conf.generated.json
 }
 ```
 
-**方式二：使用默认值**
+**缺省则使用默认值**
 
 如果不配置，将使用默认值：
 - `name`: `my-sdk`
